@@ -1,24 +1,24 @@
 
 var ScriptServer = require('scriptserver');
 
-module.exports = function(self) {
+module.exports = function(server) {
     
-    self.events = {};
+    server.events = server.events || {};
     
-    self.parseLoop.parseConsole = {
+    server.parseLoop.parseConsole = {
         id: 'parseConsole',
-        condition: function() { return self.events.console; },
+        condition: function() { return server.events.console; },
         method: function(line) {
-            if (self.events.console) self.events.console(line);
+            if (server.events.console) server.events.console(line);
         }
     };
     
-    self.parseLoop.parseChat = {
+    server.parseLoop.parseChat = {
         id: 'parseChat',
-        condition: function() { return self.events.chat; },
+        condition: function() { return server.events.chat; },
         regexp: /<([\S]+)>\s(.*)/,
         method: function(stripped) {
-            if (stripped && self.events.chat) self.events.chat({
+            if (stripped && server.events.chat) server.events.chat({
                 sender: stripped[1],
                 message: stripped[2],
                 timestamp: Date.now()
@@ -26,12 +26,12 @@ module.exports = function(self) {
         }
     };
     
-    self.parseLoop.parseLogin = {
+    server.parseLoop.parseLogin = {
         id: 'parseLogin',
-        condition: function() { return self.events.login; },
+        condition: function() { return server.events.login; },
         regexp: /\]:\s(\S+)\[\/((?:[0-9]{1,3}\.){3}[0-9]{1,3}).*at\s\((-?[\d]+\.[\d]+), (-?[\d]+\.[\d]+), (-?[\d]+\.[\d]+)/,
         method: function(stripped) {
-            if (stripped && self.events.login) self.events.login({
+            if (stripped && server.events.login) server.events.login({
                 player: stripped[1],
                 ip: stripped[2],
                 x: stripped[3],
@@ -42,12 +42,12 @@ module.exports = function(self) {
         }
     };
     
-    self.parseLoop.parseLogout = {
+    server.parseLoop.parseLogout = {
         id: 'parseLogout',
-        condition: function() { return self.events.logout; },
+        condition: function() { return server.events.logout; },
         regexp: /\]:\s(\S+).*text='(.*)',\ssiblings/,
         method: function(stripped) {
-            if (stripped && self.events.logout) self.events.logout({
+            if (stripped && server.events.logout) server.events.logout({
                 player: stripped[1],
                 reason: stripped[2],
                 timestamp: Date.now()
