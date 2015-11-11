@@ -1,6 +1,6 @@
 {
   "name": "scriptserver-event",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Event module for scriptserver",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/garrettjoecox/scriptserver-event/issues"
   },
-  "homepage": "https://github.com/garrettjoecox/scriptserver-event#readme"
+  "homepage": "https://github.com/garrettjoecox/scriptserver-event#readme",
+  "dependencies": {
+    "scriptserver": "*"
+  }
 }
