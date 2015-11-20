@@ -19,7 +19,7 @@ module.exports = function(server) {
         regexp: /\]:\s<([\w]+)>\s(.*)/,
         method: function(stripped) {
             if (stripped && server.events.chat) server.events.chat({
-                sender: stripped[1],
+                player: stripped[1],
                 message: stripped[2],
                 timestamp: Date.now()
             });
