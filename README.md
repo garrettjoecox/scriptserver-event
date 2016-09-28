@@ -12,7 +12,7 @@ npm install scriptserver-event
 ```
 And in your `server` file:
 ```javascript
-server.use('scriptserver-event');
+server.use(require('scriptserver-event'));
 ```
 
 ## Usage
@@ -86,16 +86,5 @@ server.on('achievement', event => {
 
   // Timestamp of when the player received it
   console.log(event.timestamp);
-});
-```
-
-#### Console Event
-This fires every time a log is output to console (use sparingly)
-```javascript
-// Registers the event 'console' to the following function
-server.on('console', line => {
-
-  // Line that was output to the console
-  console.log(line);
 });
 ```

@@ -1,11 +1,9 @@
 {
   "name": "scriptserver-event",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Event module for scriptserver",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/garrettjoecox/scriptserver-event.git"
@@ -16,7 +14,5 @@
     "url": "https://github.com/garrettjoecox/scriptserver-event/issues"
   },
   "homepage": "https://github.com/garrettjoecox/scriptserver-event#readme",
-  "dependencies": {
-    "scriptserver": "*"
-  }
+  "dependencies": {}
 }
