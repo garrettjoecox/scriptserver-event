@@ -42,4 +42,16 @@ module.exports = function() {
     })
   });
 
+  const load_listener = (log) => {
+    const result = log.match(/]:\sDone/);
+    // server launch done
+    if(result) {
+      // send load event
+      server.emit('load');
+      // end listen
+      server.removeListener('console', load_listener);
+    }
+  }
+  server.on('console', load_listener);
+
 }
