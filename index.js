@@ -46,21 +46,21 @@ module.exports = function() {
   let onstart_temp;
   server.on('console', onstart_temp = event => {
     const stripped = event.match(/]:\sDone/);
-    if (stripped) server.emit('start', {
-      timestamp: Date.now()
-    })
-    server.removeListener('console', onstart_temp);
+    if (stripped) {
+      server.emit('start', {
+        timestamp: Date.now()
+      });
+      server.removeListener('console', onstart_temp);
+    }
   });
 
   // event "onexit"
-  let onexit_temp;
-  server.on('start', onexit_temp = event => {
-    server.spawn.on('exit', event => {
+  server.once('start', event => {
+    server.spawn.once('exit', event => {
       server.emit('exit', {
-        timestamp: Data.now()
+        timestamp: Date.now()
       })
     })
-    server.removeListener('start', onexit_temp);
   })
 
 }
