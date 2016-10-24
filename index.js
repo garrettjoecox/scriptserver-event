@@ -52,4 +52,15 @@ module.exports = function() {
     server.removeListener('console', onstart_temp);
   });
 
+  // event "onexit"
+  let onexit_temp;
+  server.on('start', onexit_temp = event => {
+    server.spawn.on('exit', event => {
+      server.emit('exit', {
+        timestamp: Data.now()
+      })
+    })
+    server.removeListener('start', onexit_temp);
+  })
+
 }
