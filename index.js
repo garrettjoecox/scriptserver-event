@@ -42,4 +42,25 @@ module.exports = function() {
     })
   });
 
+  // event "onstart"
+  let onstart_temp;
+  server.on('console', onstart_temp = event => {
+    const stripped = event.match(/]:\sDone/);
+    if (stripped) {
+      server.emit('start', {
+        timestamp: Date.now()
+      });
+      server.removeListener('console', onstart_temp);
+    }
+  });
+
+  // event "onexit"
+  server.once('start', event => {
+    server.spawn.once('exit', event => {
+      server.emit('exit', {
+        timestamp: Date.now()
+      })
+    })
+  })
+
 }
