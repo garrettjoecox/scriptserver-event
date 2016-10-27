@@ -95,7 +95,7 @@ Fires when server finish loading
 // Registers the event 'start' to the following function
 server.on('start', event => {
 
-  // Timestamp of when server finish loading
+  // Timestamp of when server finished loading
   console.log(event.timestamp);
 });
 ```
@@ -106,7 +106,7 @@ Fires when server close
 // Registers the event 'exit' to the following function
 server.on('exit', event => {
 
-  // Timestamp of when server close
+  // Timestamp of when server closed
   console.log(event.timestamp);
 });
 ```
