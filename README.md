@@ -88,3 +88,25 @@ server.on('achievement', event => {
   console.log(event.timestamp);
 });
 ```
+
+#### Server Start Event
+Fires when server finish loading
+```javascript
+// Registers the event 'start' to the following function
+server.on('start', event => {
+
+  // Timestamp of when server finish loading
+  console.log(event.timestamp);
+});
+```
+
+#### Server Exit Event
+Fires when server close
+```javascript
+// Registers the event 'exit' to the following function
+server.on('exit', event => {
+
+  // Timestamp of when server close
+  console.log(event.timestamp);
+});
+```
