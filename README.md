@@ -90,7 +90,7 @@ server.on('achievement', event => {
 ```
 
 #### Server Start Event
-Fires when server finish loading
+Fires when server finishes starting
 ```javascript
 // Registers the event 'start' to the following function
 server.on('start', event => {
@@ -100,11 +100,11 @@ server.on('start', event => {
 });
 ```
 
-#### Server Exit Event
-Fires when server close
+#### Server Stop Event
+Fires when server closes
 ```javascript
 // Registers the event 'exit' to the following function
-server.on('exit', event => {
+server.on('stop', event => {
 
   // Timestamp of when server closed
   console.log(event.timestamp);
