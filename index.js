@@ -1,69 +1,230 @@
 
+const defaultsDeep = require('lodash.defaultsdeep');
+const get = require('lodash.get');
+
 module.exports = function () {
   const server = this;
 
-  server.on('console', (event) => {
-    const stripped = event.match(/\]:\s<([\w]+)>\s(.*)/);
-    if (stripped) {
-      server.emit('chat', {
-        player: stripped[1],
-        message: stripped[2],
-        timestamp: Date.now(),
-      });
-    }
+  server.config.event = defaultsDeep({}, server.config.event, {
+    flavorSpecific: {
+      default: {
+        parseChatEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: <(\w+)> (.*)/i);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              message: parsed[2],
+            };
+          }
+        },
+        parseLoginEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: (\w+)\[\/([\d.:]+)\] logged in/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              ip: parsed[2],
+            };
+          }
+        },
+        parseLogoutEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: (\w+) lost connection/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+            };
+          }
+        },
+        parseAchievementEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: (\w+) has made the advancement \[([\w\s]+)\]/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+            };
+          }
+        },
+        parseStartEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: Done/);
+          if (parsed) {
+            return {};
+          }
+        },
+        parseStopEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: Stopping server/);
+          if (parsed) {
+            return {};
+          }
+        },
+      },
+      spigot: {
+        parseChatEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: <(\w+)> (.*)/i);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              message: parsed[2],
+            };
+          }
+        },
+        parseLoginEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: (\w+)\[\/([\d.:]+)\] logged in/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              ip: parsed[2],
+            };
+          }
+        },
+        parseLogoutEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: (\w+) lost connection/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+            };
+          }
+        },
+        parseAchievementEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: (\w+) has made the advancement \[([\w\s]+)\]/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+            };
+          }
+        },
+        parseStartEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: Done/);
+          if (parsed) {
+            return {};
+          }
+        },
+        parseStopEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: Stopping server/);
+          if (parsed) {
+            return {};
+          }
+        },
+      },
+      sponge: {
+        parseChatEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: <(\w+)> (.*)/i);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              message: parsed[2],
+            };
+          }
+        },
+        parseLoginEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: (\w+)\[\/([\d.:]+)\] logged in/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              ip: parsed[2],
+            };
+          }
+        },
+        parseLogoutEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: (\w+) lost connection/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+            };
+          }
+        },
+        parseAchievementEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: (\w+) has made the advancement \[([\w\s]+)\]/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+            };
+          }
+        },
+        parseStartEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: Done/);
+          if (parsed) {
+            return {};
+          }
+        },
+        parseStopEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8} INFO\]: Stopping server/);
+          if (parsed) {
+            return {};
+          }
+        },
+      },
+      glowstone: {
+        parseChatEvent(string) {
+          const parsed = string.match(/^[\d:]{8} \[INFO\] <(\w+)> (.*)/i);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              message: parsed[2],
+            };
+          }
+        },
+        parseLoginEvent(string) {
+          const parsed = string.match(/^[\d:]{8} \[INFO\] (\w+) \[\/([\d.:]+)\] connected/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              ip: parsed[2],
+            };
+          }
+        },
+        parseLogoutEvent(string) {
+          const parsed = string.match(/^[\d:]{8} \[INFO\] (\w+) \[\/([\d.:]+)\] lost connection/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+            };
+          }
+        },
+        parseAchievementEvent(string) {
+          const parsed = string.match(/^[\d:]{8} \[INFO\] (\w+) has made the advancement \[([\w\s]+)\]/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+            };
+          }
+        },
+        parseStartEvent(string) {
+          const parsed = string.match(/^[\d:]{8} \[INFO\] Ready for connections/);
+          if (parsed) {
+            return {};
+          }
+        },
+        parseStopEvent(string) {
+          const parsed = string.match(/^[\d:]{8} \[INFO\] The server is shutting down/);
+          if (parsed) {
+            return {};
+          }
+        },
+      },
+    },
   });
 
-  server.on('console', (event) => {
-    const stripped = event.match(/]:\s([\w]+)\[\/([.\d]+)[^(]+\(([-.\d]+),\s([-.\d]+),\s([-.\d]+)/);
-    if (stripped) {
-      server.emit('login', {
-        player: stripped[1],
-        ip: stripped[2],
-        x: stripped[3],
-        y: stripped[4],
-        z: stripped[5],
-        timestamp: Date.now(),
-      });
-    }
-  });
+  const events = [
+    ['chat', 'parseChatEvent'],
+    ['login', 'parseLoginEvent'],
+    ['logout', 'parseLogoutEvent'],
+    ['achievement', 'parseAchievementEvent'],
+    ['start', 'parseStartEvent'],
+    ['stop', 'parseStopEvent'],
+  ];
 
-  server.on('console', (event) => {
-    const stripped = event.match(/]:\s([\w]+)[^{]+{text='([\w ]+)'/);
-    if (stripped) {
-      server.emit('logout', {
-        player: stripped[1],
-        reason: stripped[2],
-        timestamp: Date.now(),
-      });
-    }
-  });
+  server.on('console', (string) => {
+    const result = events.reduce((acc, event) => {
+      if (acc) return acc;
 
-  server.on('console', (event) => {
-    const stripped = event.match(/]:\s([\w]+)[^[]+\[([\w ]+)\]/);
-    if (stripped) {
-      server.emit('achievement', {
-        player: stripped[1],
-        achievement: stripped[2],
-        timestamp: Date.now(),
-      });
-    }
-  });
+      const parseEvent = get(server.config.event, `flavorSpecific.${server.config.flavor}.${event[1]}`, server.config.event.flavorSpecific.default[event[1]]);
+      const matches = parseEvent(string);
+      if (matches) return { event: event[0], payload: matches };
 
-  server.on('console', (event) => {
-    const stripped = event.match(/\]:\sDone\s\(.+\)!\sFor\shelp/);
-    if (stripped) {
-      server.emit('start', {
-        timestamp: Date.now(),
-      });
-    }
-  });
+      return null;
+    }, null);
 
-  server.on('console', (event) => {
-    const stripped = event.match(/\]:\sStopping\sserver/);
-    if (stripped) {
-      server.emit('stop', {
-        timestamp: Date.now(),
-      });
+    if (result) {
+      result.payload.timestamp = Date.now();
+      server.emit(result.event, result.payload);
     }
   });
 };

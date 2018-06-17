@@ -1,6 +1,8 @@
 {
   "extends": "airbnb-base",
   "rules": {
-    "func-names": "off"
+    "func-names": "off",
+    "no-multi-assign": "off",
+    "consistent-return": "off"
   }
 }
