@@ -30,8 +30,6 @@ server.on('chat', event => {
   // The chat message itself
   console.log(event.message);
 
-  // Timestamp of when the chat was sent
-  console.log(event.timestamp);
 });
 ```
 
@@ -47,11 +45,6 @@ server.on('login', event => {
   // IP Address the user logged in with
   console.log(event.ip);
 
-  // Coordinates the player logged in at
-  console.log(event.x, event.y, event.z);
-
-  // Timestamp of when the player logged in
-  console.log(event.timestamp);
 });
 ```
 
@@ -64,11 +57,6 @@ server.on('logout', event => {
   // Player who logged out
   console.log(event.player);
 
-  // Reason the player disconnected (kick, lost connection, etc)
-  console.log(event.reason);
-
-  // Timestamp of when the player logged out
-  console.log(event.timestamp);
 });
 ```
 
@@ -84,8 +72,6 @@ server.on('achievement', event => {
   // The achievement the player received
   console.log(event.achievement);
 
-  // Timestamp of when the player received it
-  console.log(event.timestamp);
 });
 ```
 
@@ -96,7 +82,7 @@ Fires when server finishes starting
 server.on('start', event => {
 
   // Timestamp of when server finished loading
-  console.log(event.timestamp);
+  console.log('Server Started!');
 });
 ```
 
@@ -107,6 +93,29 @@ Fires when server closes
 server.on('stop', event => {
 
   // Timestamp of when server closed
-  console.log(event.timestamp);
+  console.log('Server Closed!');
 });
+```
+
+## Edit match of a event
+Open the index.js for more info at the variable "custom_matchs".
+
+Example:
+```js
+
+// My Custom Event for a Spigot Chat Server
+const server = new ScriptServer({
+  eventHooks: {
+    chat: (string) => {
+      const parsed = string.match(/^\[[\d:]{8}\] \[Async Chat Thread - #0\/INFO\]: <(\w+)> (.*)/i);
+      if (parsed) {
+        return {
+          player: parsed[1],
+          message: parsed[2],
+        };
+      }
+    }
+  }
+});
+
 ```
