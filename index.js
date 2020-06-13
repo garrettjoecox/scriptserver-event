@@ -11,50 +11,50 @@ module.exports = function () {
 
   if (!server.config.eventHooks.chat) {
     server.config.eventHooks.chat = (string) => {
-      const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: <(\w+)> (.*)/i);
+      const parsed = string.match(/\[Server thread\/INFO\]: <(\w+)> (.*)/i);
       if (parsed) {
         return {
-          player: parsed[1],
-          message: parsed[2],
+          player: parsed[0],
+          message: parsed[1],
         };
       }
     };
   }
   if (!server.config.eventHooks.login) {
     server.config.eventHooks.login = (string) => {
-      const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: (\w+)\[\/([\d.:]+)\] logged in/);
+      const parsed = string.match(/\[Server thread\/INFO\]: (\w+)\[\/([\d.:]+)\] logged in/);
       if (parsed) {
         return {
-          player: parsed[1],
-          ip: parsed[2],
+          player: parsed[0],
+          ip: parsed[1],
         };
       }
     };
   }
   if (!server.config.eventHooks.logout) {
     server.config.eventHooks.logout = (string) => {
-      const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: (\w+) lost connection/);
+      const parsed = string.match(/\[Server thread\/INFO\]: (\w+) lost connection/);
       if (parsed) {
         return {
-          player: parsed[1],
+          player: parsed[0],
         };
       }
     };
   }
   if (!server.config.eventHooks.achievement) {
     server.config.eventHooks.achievement = (string) => {
-      const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: (\w+) has completed the challenge \[([\w\s]+)\]/);
+      const parsed = string.match(/\[Server thread\/INFO\]: (\w+) has completed the challenge \[([\w\s]+)\]/);
       if (parsed) {
         return {
-          player: parsed[1],
-          achievement: parsed[2]
+          player: parsed[0],
+          achievement: parsed[1]
         };
       }
     };
   }
   if (!server.config.eventHooks.start) {
     server.config.eventHooks.start = (string) => {
-      const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: Done/);
+      const parsed = string.match(/\[Server thread\/INFO\]: Done/);
       if (parsed) {
         return {};
       }
@@ -62,7 +62,7 @@ module.exports = function () {
   }
   if (!server.config.eventHooks.stop) {
     server.config.eventHooks.stop = (string) => {
-      const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: Stopping server/);
+      const parsed = string.match(/\[Server thread\/INFO\]: Stopping server/);
       if (parsed) {
         return {};
       }
