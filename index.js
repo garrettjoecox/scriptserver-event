@@ -1,7 +1,6 @@
 
 const defaultsDeep = require('lodash.defaultsdeep');
 const get = require('lodash.get');
-JasminDreasond/scriptserver-event
 module.exports = function () {
   const server = this;
 
