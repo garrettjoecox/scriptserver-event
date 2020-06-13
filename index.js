@@ -13,8 +13,8 @@ module.exports = function () {
       const parsed = string.match(/\[Server thread\/INFO\]: <(\w+)> (.*)/i);
       if (parsed) {
         return {
-          player: parsed[0],
-          message: parsed[1],
+          player: parsed[1],
+          message: parsed[2],
         };
       }
     };
@@ -24,8 +24,8 @@ module.exports = function () {
       const parsed = string.match(/\[Server thread\/INFO\]: (\w+)\[\/([\d.:]+)\] logged in/);
       if (parsed) {
         return {
-          player: parsed[0],
-          ip: parsed[1],
+          player: parsed[1],
+          ip: parsed[2],
         };
       }
     };
@@ -35,7 +35,7 @@ module.exports = function () {
       const parsed = string.match(/\[Server thread\/INFO\]: (\w+) lost connection/);
       if (parsed) {
         return {
-          player: parsed[0],
+          player: parsed[1],
         };
       }
     };
@@ -45,8 +45,8 @@ module.exports = function () {
       const parsed = string.match(/\[Server thread\/INFO\]: (\w+) has completed the challenge \[([\w\s]+)\]/);
       if (parsed) {
         return {
-          player: parsed[0],
-          achievement: parsed[1]
+          player: parsed[1],
+          achievement: parsed[2]
         };
       }
     };
