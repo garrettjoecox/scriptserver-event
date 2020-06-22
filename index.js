@@ -54,6 +54,17 @@ module.exports = function () {
             return {};
           }
         },
+        parseTriggerEvent(string) {
+          const parsed = string.match(/^\[[\d:]{8}\] \[Server thread\/INFO\]: \[(\w+): Triggered \[(.*(?=\](?:\]| )))(?:\] \((set|added))?(?:[^0-9]*(\d+(?=\)\])|\d+(?= to value\)\])))?/);
+          if (parsed) {
+            return {
+              player: parsed[1],
+              trigger: parsed[2],
+              operation: parsed[3],
+              value: parsed[4]
+            };
+          }
+        },
       },
     },
   });
@@ -65,6 +76,7 @@ module.exports = function () {
     ['achievement', 'parseAchievementEvent'],
     ['start', 'parseStartEvent'],
     ['stop', 'parseStopEvent'],
+    ['trigger','parseTriggerEvent']
   ];
 
   server.on('console', (string) => {
