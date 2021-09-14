@@ -1,7 +1,7 @@
 {
   "name": "scriptserver-event",
-  "version": "1.1.1",
-  "description": "Event module for scriptserver",
+  "version": "1.1.2",
+  "description": "Deprecated - Moved to @scriptserver/event",
   "main": "index.js",
   "repository": {
     "type": "git",

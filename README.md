@@ -1,4 +1,4 @@
-scriptserver-event
+Deprecated - Moved to @scriptserver/event
 ====================
 
 [![](http://i.imgur.com/zhptNme.png)](https://github.com/garrettjoecox/scriptserver)
